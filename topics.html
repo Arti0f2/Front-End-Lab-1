@@ -5,37 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Навчальні теми CodeNest">
   <title>Навчальні теми | CodeNest</title>
-  <!-- Для наступних лабораторних: <link rel="stylesheet" href="css/style.css"> -->
-  <!-- Для наступних лабораторних: <script src="js/main.js" defer></script> -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <header id="top">
-    <h1><span aria-hidden="true">&lt;/&gt;</span> CodeNest</h1>
-    <p>Веб-портал для вивчення мов програмування</p>
+<body class="topics-page">
+  <header id="top" class="topics-header">
+    <a class="brand" href="index.html" aria-label="CodeNest, на головну">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      <span>Code<span class="brand-accent">Nest</span></span>
+    </a>
     <nav aria-label="Головна навігація">
-      <a href="index.html">Головна</a> |
-      <a href="topics.html">Навчальні теми</a> |
-      <a href="index.html#about">Про портал</a> |
+      <a href="index.html">Головна</a>
+      <a class="active" href="topics.html" aria-current="page">Навчальні теми</a>
+      <a href="index.html#about">Про портал</a>
       <a href="feedback.html">Зворотний зв'язок</a>
     </nav>
   </header>
-  <main>
-    <h2>Навчальні теми</h2>
-    <p>Оберіть тему та перейдіть до відповідного довідкового матеріалу.</p>
-    <table border="1" width="100%" cellpadding="8">
-      <caption>Список навчальних тем CodeNest</caption>
-      <thead><tr><th>№</th><th>Ілюстрація</th><th>Назва теми</th><th>Назви уроків</th><th>Тип завдань</th></tr></thead>
-      <tbody>
-        <tr><th>1</th><td><img src="images/html.svg" alt="Ілюстрація HTML" width="160" height="90"></td><td>HTML: мова структури</td><td>Семантичні теги; посилання; форми й таблиці</td><td>Практична розмітка</td></tr>
-        <tr><th>2</th><td><img src="images/css.svg" alt="Ілюстрація CSS" width="160" height="90"></td><td>CSS: мова стилю</td><td>Селектори; Flexbox; адаптивність</td><td>Вправи з оформлення</td></tr>
-        <tr><th>3</th><td><img src="images/javascript.svg" alt="Ілюстрація JavaScript" width="160" height="90"></td><td>JavaScript: мова дії</td><td>Змінні; функції; DOM і події</td><td>Інтерактивний проєкт</td></tr>
-        <tr><th>4</th><td><img src="images/sql.svg" alt="Ілюстрація SQL" width="160" height="90"></td><td>SQL: мова даних</td><td>SELECT; WHERE; JOIN-запити</td><td>Запити до бази даних</td></tr>
-        <tr><th>5</th><td><img src="images/python.svg" alt="Ілюстрація Python" width="160" height="90"></td><td>Python: мова рішень</td><td>Типи даних; цикли; умови</td><td>Корисний скрипт</td></tr>
-      </tbody>
-    </table>
-    <!-- <p><a href="https://w3schoolsua.github.io/sql/sql_join.html#gsc.tab=0" target="_blank" rel="noopener">Відкрити приклад SQL JOIN</a></p> -->
-    <p><a href="index.html">← Повернутися на головну сторінку</a></p>
+  <main class="topics-main">
+    <h1>Навчальні теми</h1>
+    <p>Оберіть тему та перегляньте її основні напрямки й практичне завдання.</p>
+    <section class="topic-grid" aria-label="Перелік навчальних тем">
+      <article class="topic-card">
+        <img class="topic-image" src="images/html.svg" alt="Ілюстрація HTML">
+        <div class="topic-body">
+          <h2 class="topic-name">HTML: мова структури</h2>
+          <p class="topic-description">HTML задає структуру вебсторінки та описує її зміст за допомогою елементів.</p>
+          <div class="topic-details">
+            <p><strong>Теми для вивчення:</strong></p>
+            <ul><li>Семантичні теги</li><li>Посилання та зображення</li><li>Форми й таблиці</li></ul>
+            <p><strong>Практичне завдання:</strong> створити структуровану сторінку.</p>
+          </div>
+        </div>
+      </article>
+      <article class="topic-card">
+        <img class="topic-image" src="images/css.svg" alt="Ілюстрація CSS">
+        <div class="topic-body">
+          <h2 class="topic-name">CSS: мова стилю</h2>
+          <p class="topic-description">CSS визначає вигляд сторінки, оформлення елементів та їхнє розташування.</p>
+          <div class="topic-details">
+            <p><strong>Теми для вивчення:</strong></p>
+            <ul><li>Селектори та властивості</li><li>Flexbox і Grid</li><li>Адаптивність</li></ul>
+            <p><strong>Практичне завдання:</strong> оформити сторінку за допомогою таблиці стилів.</p>
+          </div>
+        </div>
+      </article>
+      <article class="topic-card">
+        <img class="topic-image" src="images/javascript.svg" alt="Ілюстрація JavaScript">
+        <div class="topic-body">
+          <h2 class="topic-name">JavaScript: мова дії</h2>
+          <p class="topic-description">JavaScript додає логіку та реакцію на події користувача у вебінтерфейсі.</p>
+          <div class="topic-details">
+            <p><strong>Теми для вивчення:</strong></p>
+            <ul><li>Змінні та типи даних</li><li>Функції й умови</li><li>DOM і події</li></ul>
+            <p><strong>Практичне завдання:</strong> створити інтерактивний проєкт.</p>
+          </div>
+        </div>
+      </article>
+      <article class="topic-card">
+        <img class="topic-image" src="images/sql.svg" alt="Ілюстрація SQL">
+        <div class="topic-body">
+          <h2 class="topic-name">SQL: мова даних</h2>
+          <p class="topic-description">SQL використовують для пошуку, фільтрування та поєднання даних у базах.</p>
+          <div class="topic-details">
+            <p><strong>Теми для вивчення:</strong></p>
+            <ul><li>SELECT і WHERE</li><li>Сортування результатів</li><li>JOIN-запити</li></ul>
+            <p><strong>Практичне завдання:</strong> скласти запити до бази даних.</p>
+          </div>
+        </div>
+      </article>
+      <article class="topic-card">
+        <img class="topic-image" src="images/python.svg" alt="Ілюстрація Python">
+        <div class="topic-body">
+          <h2 class="topic-name">Python: мова рішень</h2>
+          <p class="topic-description">Python допомагає розв'язувати завдання за допомогою зрозумілого та виразного коду.</p>
+          <div class="topic-details">
+            <p><strong>Теми для вивчення:</strong></p>
+            <ul><li>Типи даних</li><li>Умови та цикли</li><li>Функції</li></ul>
+            <p><strong>Практичне завдання:</strong> написати корисний скрипт.</p>
+          </div>
+        </div>
+      </article>
+    </section>
   </main>
-  <footer><hr><p><strong>CodeNest</strong> | <a href="mailto:hello@codenest.ua">hello@codenest.ua</a> | <a href="#top">На початок</a></p></footer>
+  <footer class="topics-footer">
+    <strong>CodeNest</strong> |
+    <a href="mailto:hello@codenest.ua">hello@codenest.ua</a> |
+    <a href="#top">На початок</a>
+  </footer>
 </body>
 </html>

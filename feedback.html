@@ -4,31 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Форма зворотного зв'язку CodeNest">
+
   <title>Зворотний зв'язок | CodeNest</title>
-  <!-- Для наступних лабораторних: <link rel="stylesheet" href="css/style.css"> -->
+  <link rel="stylesheet" href="css/style.css">
   <!-- Для наступних лабораторних: <script src="js/main.js" defer></script> -->
 </head>
-<body>
-  <header id="top"><h1><span aria-hidden="true">&lt;/&gt;</span> CodeNest</h1><p>Веб-портал для вивчення мов програмування</p><nav aria-label="Головна навігація"><a href="index.html">Головна</a> | <a href="topics.html">Навчальні теми</a> | <a href="feedback.html">Зворотний зв'язок</a></nav></header>
+<body class="feedback-page">
+  <header id="top">
+    <a class="brand" href="index.html" aria-label="CodeNest, на головну">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      <span>Code<span class="brand-accent">Nest</span></span>
+    </a>
+    <nav aria-label="Головна навігація">
+      <a href="index.html">Головна</a>
+      <a href="topics.html">Навчальні теми</a>
+      <a href="feedback.html" aria-current="page">Зворотний зв'язок</a>
+    </nav>
+  </header>
   <main>
     <h2>Зворотний зв'язок</h2>
     <p>Надішліть пропозицію, запитання або повідомлення про помилку.</p>
-    <form id="feedback-form" action="#" method="post">
+    <form id="feedback-form" class="feedback-form" action="#" method="post">
       <fieldset>
         <legend>Персональна інформація</legend>
-        <table border="1" cellpadding="8">
-          <tr><td><label for="name">Прізвище та ім'я *</label></td><td><input id="name" name="name" type="text" placeholder="Іваненко Олена" required></td></tr>
-          <tr><td><label for="email">E-mail *</label></td><td><input id="email" name="email" type="email" placeholder="you@example.com" required></td></tr>
-          <tr><td><label for="age">Вік *</label></td><td><input id="age" name="age" type="number" min="10" max="100" required></td></tr>
-          <tr><td><label for="level">Чи вже вивчаєте мову? *</label></td><td><select id="level" name="level" required><option value="" selected disabled>Оберіть варіант</option><option>Так, я профі</option><option>Так, але знаю початки</option><option>Планую</option><option>Ні</option></select></td></tr>
-        </table>
+        <div class="feedback-fields">
+          <div class="feedback-field"><label for="name">Прізвище та ім'я *</label><input id="name" name="name" type="text" placeholder="Іваненко Олена" required></div>
+          <div class="feedback-field"><label for="email">E-mail *</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+          <div class="feedback-field"><label for="age">Вік *</label><input id="age" name="age" type="number" min="10" max="100" required></div>
+          <div class="feedback-field"><label for="level">Чи вже вивчаєте мову? *</label><select id="level" name="level" required><option value="" selected disabled>Оберіть варіант</option><option>Так, я профі</option><option>Так, але знаю початки</option><option>Планую</option><option>Ні</option></select></div>
+        </div>
       </fieldset>
-      <p><label for="purpose">Мета зворотного зв'язку *</label><br><select id="purpose" name="purpose" required><option value="" selected disabled>Оберіть варіант</option><option>Співпраця</option><option>Скарга на неякісний контент</option><option>Пропозиція</option><option>Наявність помилки</option></select></p>
-      <p><label for="details">Детально * (до 500 символів)</label><br><textarea id="details" name="details" rows="8" cols="60" maxlength="500" required></textarea></p>
+      <p><label for="purpose">Мета зворотного зв'язку *</label><select id="purpose" name="purpose" required><option value="" selected disabled>Оберіть варіант</option><option>Співпраця</option><option>Скарга на неякісний контент</option><option>Пропозиція</option><option>Наявність помилки</option></select></p>
+      <p><label for="details">Детально * (до 500 символів)</label><textarea id="details" name="details" rows="8" cols="60" maxlength="500" required></textarea></p>
       <p><label><input type="checkbox" name="consent" required> Я погоджуюся на обробку наданої інформації.</label></p>
-      <p><button type="submit">Надіслати</button> <button type="reset">Очистити</button></p>
+      <p class="feedback-actions"><button type="submit">Надіслати</button><button type="reset">Очистити</button></p>
     </form>
   </main>
-  <footer><hr><p><strong>CodeNest</strong> | <a href="index.html">На головну</a> | <a href="#top">На початок</a></p></footer>
+  <footer><p><strong>CodeNest</strong> | <a href="index.html">На головну</a> | <a href="#top">На початок</a></p></footer>
 </body>
 </html>
