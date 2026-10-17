@@ -465,6 +465,161 @@ header nav a {
   color: #f4df67;
 }
 
+.lab3-main {
+  display: grid;
+  gap: 2rem;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 2.5rem clamp(1rem, 4vw, 2.5rem);
+}
+
+.lab3-heading h1,
+.lab3-section h2 {
+  color: var(--purple-dark);
+}
+
+.lab3-heading h1 {
+  margin: 0 0 0.4rem;
+}
+
+.lab3-section {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  border: 1px solid #d8d1e0;
+  border-radius: 0.8rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--paper);
+  box-shadow: 0 8px 24px rgb(39 22 63 / 6%);
+}
+
+.lab3-section h2,
+.lab3-section h3,
+.lab3-section p {
+  margin-top: 0;
+}
+
+.lab3-section h2,
+.lab3-section h3 {
+  margin-bottom: 0;
+}
+
+.lab3-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lab3-button,
+.lab3-form button {
+  border: 0;
+  border-radius: 0.4rem;
+  padding: 0.65rem 0.9rem;
+  background: var(--purple);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lab3-button:hover,
+.lab3-form button:hover {
+  background: #7948a7;
+}
+
+.lab3-output {
+  border-left: 3px solid #885db0;
+  padding: 0.65rem 0.9rem;
+  background: #f4eff9;
+}
+
+.lab3-table-wrap {
+  overflow: auto;
+  max-width: 100%;
+}
+
+.lab3-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.lab3-table th,
+.lab3-table td {
+  border: 1px solid #d8d1e0;
+  padding: 0.65rem;
+  vertical-align: top;
+}
+
+.lab3-table th {
+  background: #eee8f5;
+}
+
+.lab3-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  align-items: end;
+  gap: 0.9rem;
+}
+
+.lab3-form fieldset {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 0.9rem;
+  border: 1px solid #c8b2dc;
+  border-radius: 0.6rem;
+}
+
+.lab3-form legend {
+  padding: 0 0.4rem;
+  font-weight: 700;
+}
+
+.lab3-field {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+}
+
+.lab3-field label {
+  font-weight: 700;
+}
+
+.lab3-field input,
+.lab3-field select {
+  min-width: 0;
+  border: 1px solid #a99bb8;
+  border-radius: 0.35rem;
+  padding: 0.6rem;
+  background: var(--paper);
+  font: inherit;
+}
+
+.lab3-form > button,
+.lab3-form > .lab3-actions,
+.lab3-form > output,
+.lab3-form > p {
+  grid-column: 1 / -1;
+}
+
+.lab3-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.8rem;
+}
+
+.lab3-category {
+  border-radius: 0.5rem;
+  padding: 0.9rem;
+  background: #f4eff9;
+}
+
+.lab3-category p {
+  margin: 0.4rem 0 0;
+}
+
 @media (max-width: 700px) {
   header#top {
     grid-template-columns: 1fr;
