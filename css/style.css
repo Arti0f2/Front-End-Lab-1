@@ -467,10 +467,10 @@ header nav a {
 
 .lab3-main {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
-  width: min(1200px, 100%);
-  margin: 0 auto;
-  padding: 2.5rem clamp(1rem, 4vw, 2.5rem);
+  min-width: 0;
+  padding: 0;
 }
 
 .lab3-heading h1,
@@ -484,6 +484,7 @@ header nav a {
 
 .lab3-section {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   min-width: 0;
   border: 1px solid #d8d1e0;
@@ -529,6 +530,9 @@ header nav a {
 }
 
 .lab3-output {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
   border-left: 3px solid #885db0;
   padding: 0.65rem 0.9rem;
   background: #f4eff9;
@@ -602,6 +606,24 @@ header nav a {
 .lab3-form > output,
 .lab3-form > p {
   grid-column: 1 / -1;
+}
+
+.lab3-form > button {
+  justify-self: start;
+  width: fit-content;
+}
+
+.user-filter-form {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  align-items: end;
+  margin-bottom: 0.8rem;
+  border: 1px solid #d8d1e0;
+  border-radius: 0.6rem;
+  padding: 1rem;
+}
+
+.user-filter-form > button {
+  grid-column: auto;
 }
 
 .lab3-categories {

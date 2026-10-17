@@ -8,6 +8,7 @@
   <meta name="keywords" content="програмування HTML CSS JS">
   <title>CodeNest | Вивчай код по-новому</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/lab3.js" defer></script>
   <!-- Для наступних лабораторних: <script src="js/main.js" defer></script> -->
 </head>
 <body>
@@ -19,7 +20,6 @@
       <a href="#about">Про портал</a>
       <a href="#contacts">Контакти</a>
       <a href="feedback.html">Зворотний зв'язок</a>
-      <a href="lab3.html">Лабораторна 3</a>
     </nav>
   </header>
 
@@ -83,6 +83,90 @@ function startJourney() {
       </div>
       <p class="learning-description">На порталі навчають створювати вебсторінки, працювати з даними та автоматизувати завдання за допомогою мов програмування.</p>
       <p><span>Кожен рядок коду</span> — це <i>маленький експеримент</i>, <b>смілива спроба</b>, <em>новий рівень</em> і <u>твій власний результат</u>.</p>
+    </section>
+
+    <section class="lab3-main" id="lab3" aria-labelledby="lab3-title">
+      <div class="lab3-heading">
+        <h2 id="lab3-title">Практика з темами та зверненнями</h2>
+        <p>Продовжуйте знайомство з CodeNest: переглядайте навчальні теми й облікові записи користувачів.</p>
+      </div>
+
+      <section class="lab3-section" aria-labelledby="topics-title">
+        <h3 id="topics-title">Навчальні теми</h3>
+        <p>Початкові записи містять десять тем. Середня кількість прочитань за добу обчислюється за обома показниками для кожної теми.</p>
+        <div class="lab3-actions">
+          <button class="lab3-button" id="sort-topics" type="button">Упорядкувати за тривалістю</button>
+          <button class="lab3-button" id="find-min-topic" type="button">Знайти мінімум за добу 2</button>
+        </div>
+        <output class="lab3-output" id="topic-average" aria-live="polite"></output>
+        <p class="lab3-output" id="min-topic-result" aria-live="polite">Оберіть пошук, щоб визначити внутрішній ID теми з найменшою кількістю прочитань за добу 2.</p>
+        <div class="lab3-table-wrap">
+          <table class="lab3-table">
+            <thead>
+              <tr><th>Обрати</th><th>Внутрішній ID</th><th>Назва теми</th><th>Автор</th><th>Тип завдань</th><th>Доба 1</th><th>Доба 2</th><th>Тривалість</th></tr>
+            </thead>
+            <tbody id="topics-table-body"></tbody>
+          </table>
+        </div>
+
+        <section aria-labelledby="study-title">
+          <h4 id="study-title">Одночасне вивчення тем</h4>
+          <p>Оберіть теми в таблиці вище. Якщо їх більше трьох, тривалість кожної збільшиться у 1,5 рази.</p>
+          <button class="lab3-button" id="calculate-study-time" type="button">Обчислити тривалість</button>
+          <output class="lab3-output" id="study-time-result" aria-live="polite"></output>
+        </section>
+
+        <section aria-labelledby="add-topic-title">
+          <h4 id="add-topic-title">Додати тему</h4>
+          <p>Неповний запис додається на початок; повний — у список, упорядкований за автором.</p>
+          <form class="lab3-form" id="add-topic-form">
+            <label class="lab3-field"><span>Внутрішній ID</span><input name="id" type="text"></label>
+            <label class="lab3-field"><span>Назва теми</span><input name="title" type="text"></label>
+            <label class="lab3-field"><span>Автор</span><input name="author" type="text"></label>
+            <label class="lab3-field"><span>Тип завдань</span><input name="taskType" type="text"></label>
+            <label class="lab3-field"><span>Прочитали за добу 1</span><input name="readersDay1" type="number" min="0" step="1"></label>
+            <label class="lab3-field"><span>Прочитали за добу 2</span><input name="readersDay2" type="number" min="0" step="1"></label>
+            <label class="lab3-field"><span>Тривалість, год</span><input name="hours" type="number" min="0" step="1"></label>
+            <label class="lab3-field"><span>Тривалість, хв</span><input name="minutes" type="number" min="0" max="59" step="1"></label>
+            <button type="submit">Додати запис</button>
+            <output class="lab3-output" id="add-topic-result" aria-live="polite"></output>
+          </form>
+        </section>
+      </section>
+
+      <section class="lab3-section" aria-labelledby="users-title">
+        <h3 id="users-title">Облікові записи користувачів</h3>
+        <p>Дані десяти користувачів обробляються об'єктами класу JavaScript.</p>
+        <section aria-labelledby="filter-users-title">
+          <h4 id="filter-users-title">Пошук звернень за місяцем і моментом часу</h4>
+          <form class="lab3-form user-filter-form" id="filter-users-form">
+            <label class="lab3-field"><span>Місяць звернення</span><input id="filter-month" type="month"></label>
+            <label class="lab3-field"><span>На момент часу</span><input id="filter-moment" type="datetime-local"></label>
+            <button type="submit">Знайти користувачів</button>
+          </form>
+          <output class="lab3-output" id="filtered-users-result" aria-live="polite">Оберіть місяць і момент часу для пошуку.</output>
+        </section>
+
+        <section aria-labelledby="minimum-age-title">
+          <h4 id="minimum-age-title">Наймолодший користувач</h4>
+          <output class="lab3-output" id="minimum-age-result" aria-live="polite"></output>
+        </section>
+
+        <section aria-labelledby="categories-title">
+          <h4 id="categories-title">Розподіл за віком і датою звернення</h4>
+          <div class="lab3-categories" id="user-categories"></div>
+        </section>
+
+        <section aria-labelledby="email-sort-title">
+          <h4 id="email-sort-title">Користувачі за алфавітом E-mail</h4>
+          <div class="lab3-table-wrap">
+            <table class="lab3-table">
+              <thead><tr><th>Прізвище та ім'я</th><th>Вік</th><th>E-mail</th><th>Мета звернення</th><th>Дата</th><th>Час</th></tr></thead>
+              <tbody id="users-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
     </section>
   </main>
 
