@@ -1,0 +1,112 @@
+.feedback-page main {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2.5rem clamp(1rem, 5vw, 4rem);
+}
+
+.feedback-page main > h2,
+.feedback-page main > p {
+  flex: 1 0 100%;
+  margin: 0;
+}
+
+.feedback-form {
+  display: flex;
+  flex: 1 1 520px;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  gap: 1.2rem;
+  max-width: 850px;
+}
+
+.feedback-form fieldset {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  gap: 1rem;
+  border: 1px solid #c8b2dc;
+  border-radius: 0.6rem;
+}
+
+.feedback-form legend {
+  padding: 0 0.4rem;
+  font-weight: 700;
+}
+
+.feedback-fields {
+  display: flex;
+  flex: 1 1 100%;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  gap: 1rem;
+}
+
+.feedback-field {
+  flex: 1 1 15rem;
+  align-self: stretch;
+}
+
+.feedback-field label,
+.feedback-form > p label:first-child {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.feedback-form input:not([type="checkbox"]),
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  border: 1px solid #a99bb8;
+  border-radius: 0.35rem;
+  padding: 0.65rem;
+  font: inherit;
+}
+
+.feedback-form textarea {
+  min-height: 10rem;
+  overflow-y: auto;
+  resize: vertical;
+}
+
+.feedback-form > p {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.feedback-form > .feedback-actions {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.75rem;
+}
+
+.feedback-form button {
+  flex: 0 1 auto;
+  border: 0;
+  border-radius: 0.4rem;
+  padding: 0.7rem 1rem;
+  background: var(--purple);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.feedback-form button:hover {
+  background: #7948a7;
+}
+
+.feedback-page footer {
+  padding: 1rem clamp(1rem, 5vw, 4rem);
+  background: var(--purple-dark);
+  color: var(--paper);
+}
+
+.feedback-page footer a {
+  color: #f4df67;
+}

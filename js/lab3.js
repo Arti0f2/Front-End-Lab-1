@@ -22,7 +22,7 @@ class UserRecord {
     if (this.age < 16 && month < 9) {
       return 'Школярі до початку навчального року';
     }
-    if (this.age >= 16 && (month >= 9 || month <= 6)) {
+    if (this.age >= 16 && (month >= 9 || (month >= 2 && month <= 6))) {
       return 'Не школярі впродовж семестру';
     }
     return 'Інші';
@@ -77,14 +77,22 @@ function formatValue(value) {
 }
 
 function renderTopics() {
+  const previouslyChecked = new Set(
+    [...document.querySelectorAll('.study-topic:checked')].map((cb) => cb.value)
+  );
+
   topicBody.replaceChildren();
   for (const topic of topics) {
     const row = document.createElement('tr');
+    row.id = `topic-row-${topic.id || topic.key}`;
     const checkCell = document.createElement('td');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'study-topic';
     checkbox.value = topic.key;
+    if (previouslyChecked.has(topic.key)) {
+      checkbox.checked = true;
+    }
     checkbox.setAttribute('aria-label', `Обрати тему ${topic.title || topic.id || 'без назви'}`);
     checkCell.append(checkbox);
     row.append(checkCell);
@@ -106,9 +114,11 @@ function renderTopics() {
 
   const readershipValues = topics.flatMap((topic) => [topic.readersDay1, topic.readersDay2])
     .filter((value) => Number.isFinite(value));
-  const average = readershipValues.reduce((sum, value) => sum + value, 0) / readershipValues.length;
+  const average = readershipValues.length
+    ? readershipValues.reduce((sum, value) => sum + value, 0) / readershipValues.length
+    : 0;
   document.querySelector('#topic-average').textContent =
-    `Середня кількість прочитань за добу (за обома добами): ${average.toLocaleString('uk-UA', { maximumFractionDigits: 1 })}.`;
+    `Середня кількість користувачів, що цікавляться темами (за обома добами): ${average.toLocaleString('uk-UA', { maximumFractionDigits: 1 })} чол./добу.`;
 }
 
 function renderUsers(records) {
@@ -186,13 +196,19 @@ function addTopic(event) {
     return;
   }
 
-  if (requiredValues.some((value) => value === null || String(value).trim() === '')) {
+  const isMissingInfo = requiredValues.some((value) => value === null || String(value).trim() === '');
+  if (isMissingInfo) {
     topics.unshift(topic);
-    result.textContent = 'Додано неповний запис на початок списку.';
+    result.textContent = `Додано неповний запис (ID: ${topic.id || 'без ID'}) на початок списку тем.`;
   } else {
-    topics.push(topic);
-    topics.sort((first, second) => first.author.localeCompare(second.author, 'uk'));
-    result.textContent = 'Повний запис додано до списку, упорядкованого за автором.';
+    topics.sort((first, second) => (first.author || '').localeCompare(second.author || '', 'uk'));
+    let insertIndex = topics.findIndex((item) => (item.author || '').localeCompare(topic.author, 'uk') >= 0);
+    if (insertIndex === -1) {
+      topics.push(topic);
+    } else {
+      topics.splice(insertIndex, 0, topic);
+    }
+    result.textContent = `Повний запис «${topic.title}» успішно додано у список, впорядкований за автором (${topic.author}).`;
   }
 
   renderTopics();
@@ -201,27 +217,45 @@ function addTopic(event) {
 
 function filterUsers(event) {
   event.preventDefault();
-  const month = document.querySelector('#filter-month').value;
-  const moment = document.querySelector('#filter-moment').value;
+  const monthInput = document.querySelector('#filter-month').value;
+  const momentInput = document.querySelector('#filter-moment').value;
   const result = document.querySelector('#filtered-users-result');
 
-  if (!month || !moment) {
+  if (!monthInput || !momentInput) {
     result.textContent = 'Оберіть і місяць, і момент часу, щоб виконати пошук.';
     return;
   }
 
-  const matches = users.filter((user) => user.date.startsWith(month) && user.contactedAt <= moment)
-    .sort(UserRecord.compareByEmail);
+  const matches = users.filter((user) => {
+    const matchesMonth = user.date.startsWith(monthInput);
+    const matchesMoment = user.contactedAt <= momentInput;
+    return matchesMonth && matchesMoment;
+  }).sort(UserRecord.compareByEmail);
+
   renderUsers(matches);
   result.textContent = matches.length
-    ? `Звернення до ${moment.replace('T', ' ')} за ${month}: ${matches.map((user) => user.fullName).join(', ')}.`
-    : `За ${month} до ${moment.replace('T', ' ')} звернень не знайдено.`;
+    ? `Знайдено ${matches.length} звернень за ${monthInput} до ${momentInput.replace('T', ' ')}: ${matches.map((u) => u.fullName).join(', ')}.`
+    : `За місяць ${monthInput} до ${momentInput.replace('T', ' ')} звернень не знайдено.`;
+}
+
+function resetUsersFilter() {
+  document.querySelector('#filter-month').value = '2026-10';
+  document.querySelector('#filter-moment').value = '2026-10-15T18:00';
+  document.querySelector('#filtered-users-result').textContent = 'Оберіть місяць і момент часу для пошуку.';
+  renderUsers([...users].sort(UserRecord.compareByEmail));
+}
+
+function sortUsersByEmail() {
+  const sorted = [...users].sort(UserRecord.compareByEmail);
+  renderUsers(sorted);
+  const result = document.querySelector('#filtered-users-result');
+  result.textContent = `Всі ${sorted.length} користувачів впорядковано за алфавітом E-mail.`;
 }
 
 function renderMinimumAge() {
   const youngest = users.reduce((minimum, user) => user.age < minimum.age ? user : minimum);
   document.querySelector('#minimum-age-result').textContent =
-    `Вік: ${youngest.age}; E-mail: ${youngest.email}; дата звернення: ${youngest.date}.`;
+    `Вік: ${youngest.age} р.; E-mail: ${youngest.email}; дата звернення: ${youngest.date} (${youngest.fullName}).`;
 }
 
 function renderUserCategories() {
@@ -231,6 +265,7 @@ function renderUserCategories() {
     'Інші',
   ];
   const container = document.querySelector('#user-categories');
+  container.replaceChildren();
   for (const category of categories) {
     const members = users.filter((user) => user.classify() === category);
     const card = document.createElement('article');
@@ -238,8 +273,13 @@ function renderUserCategories() {
     const title = document.createElement('strong');
     title.textContent = category;
     const count = document.createElement('p');
-    count.textContent = `Користувачів: ${members.length}`;
-    card.append(title, count);
+    count.textContent = `Кількість: ${members.length}`;
+    const userList = document.createElement('small');
+    userList.style.display = 'block';
+    userList.style.marginTop = '0.35rem';
+    userList.style.color = '#555';
+    userList.textContent = members.map((m) => `${m.fullName} (${m.age} р.)`).join(', ') || '—';
+    card.append(title, count, userList);
     container.append(card);
   }
 }
@@ -249,7 +289,7 @@ document.querySelector('#sort-topics').addEventListener('click', () => {
     const firstHasDuration = first.hours !== null && first.minutes !== null;
     const secondHasDuration = second.hours !== null && second.minutes !== null;
     if (firstHasDuration !== secondHasDuration) {
-      return firstHasDuration ? 1 : -1;
+      return firstHasDuration ? -1 : 1;
     }
     if (!firstHasDuration) {
       return 0;
@@ -266,15 +306,26 @@ document.querySelector('#find-min-topic').addEventListener('click', () => {
     result.textContent = 'Немає тем із заповненою кількістю прочитань за добу 2.';
     return;
   }
-  const topic = topicsWithReaders.reduce((minimum, current) =>
-    current.readersDay2 < minimum.readersDay2 ? current : minimum);
+  const minTopic = topicsWithReaders.reduce((minimum, current) =>
+    current.readersDay2 < minimum.readersDay2 ? current : minimum
+  );
+
   result.textContent =
-    `Мінімальна кількість прочитань за добу 2: тема «${topic.title}»; внутрішній ID: ${topic.id}.`;
+    `Мінімальна кількість прочитань за добу 2: тема «${minTopic.title}» (${minTopic.readersDay2} читачів). Внутрішній ID: ${minTopic.id}.`;
+
+  document.querySelectorAll('#topics-table-body tr').forEach((tr) => (tr.style.backgroundColor = ''));
+  const targetRow = document.querySelector(`#topic-row-${minTopic.id || minTopic.key}`);
+  if (targetRow) {
+    targetRow.style.backgroundColor = '#e8dcf7';
+  }
 });
 
 document.querySelector('#calculate-study-time').addEventListener('click', getStudyDuration);
 document.querySelector('#add-topic-form').addEventListener('submit', addTopic);
 document.querySelector('#filter-users-form').addEventListener('submit', filterUsers);
+document.querySelector('#reset-filter-btn').addEventListener('click', resetUsersFilter);
+document.querySelector('#sort-users-email').addEventListener('click', sortUsersByEmail);
+document.querySelector('#reset-users').addEventListener('click', resetUsersFilter);
 
 renderTopics();
 renderUsers([...users].sort(UserRecord.compareByEmail));

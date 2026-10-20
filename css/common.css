@@ -1,0 +1,111 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #242038;
+  background: #f8f7fb;
+  font-synthesis: none;
+  line-height: 1.6;
+  --purple: #38205d;
+  --purple-dark: #27163f;
+  --yellow: #e5bd00;
+  --paper: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+a {
+  color: var(--purple);
+}
+
+a:hover {
+  color: #7948a7;
+}
+
+header#top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem clamp(1rem, 5vw, 4rem);
+  background: var(--paper);
+  box-shadow: 0 2px 12px rgb(39 22 63 / 8%);
+}
+
+.home-header {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.topics-header {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--purple-dark);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand-mark {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  place-items: center;
+  border-radius: 0.7rem;
+  background: var(--purple-dark);
+  color: var(--paper);
+  font-family: Consolas, monospace;
+}
+
+.brand-accent {
+  color: #885db0;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem 1.25rem;
+}
+
+header nav a {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+header nav a.active,
+header nav a[aria-current="page"] {
+  color: #885db0;
+  border-bottom: 2px solid #885db0;
+}
+
+@media (max-width: 700px) {
+  header#top {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  header nav {
+    justify-content: flex-start;
+  }
+}

@@ -7,7 +7,8 @@
   <meta name="author" content=" Артем Іващук">
   <meta name="keywords" content="програмування HTML CSS JS">
   <title>CodeNest | Вивчай код по-новому</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/home.css">
   <script src="js/lab3.js" defer></script>
   <!-- Для наступних лабораторних: <script src="js/main.js" defer></script> -->
 </head>
@@ -140,9 +141,12 @@ function startJourney() {
         <section aria-labelledby="filter-users-title">
           <h4 id="filter-users-title">Пошук звернень за місяцем і моментом часу</h4>
           <form class="lab3-form user-filter-form" id="filter-users-form">
-            <label class="lab3-field"><span>Місяць звернення</span><input id="filter-month" type="month"></label>
-            <label class="lab3-field"><span>На момент часу</span><input id="filter-moment" type="datetime-local"></label>
-            <button type="submit">Знайти користувачів</button>
+            <label class="lab3-field"><span>Місяць звернення</span><input id="filter-month" type="month" value="2026-10"></label>
+            <label class="lab3-field"><span>На момент часу</span><input id="filter-moment" type="datetime-local" value="2026-10-15T18:00"></label>
+            <div class="lab3-actions">
+              <button type="submit">Знайти користувачів</button>
+              <button class="lab3-button" id="reset-filter-btn" type="button">Скинути фільтр</button>
+            </div>
           </form>
           <output class="lab3-output" id="filtered-users-result" aria-live="polite">Оберіть місяць і момент часу для пошуку.</output>
         </section>
@@ -159,6 +163,10 @@ function startJourney() {
 
         <section aria-labelledby="email-sort-title">
           <h4 id="email-sort-title">Користувачі за алфавітом E-mail</h4>
+          <div class="lab3-actions" style="margin-bottom: 0.8rem;">
+            <button class="lab3-button" id="sort-users-email" type="button">Сортувати за алфавітом E-mail</button>
+            <button class="lab3-button" id="reset-users" type="button">Показати всіх користувачів</button>
+          </div>
           <div class="lab3-table-wrap">
             <table class="lab3-table">
               <thead><tr><th>Прізвище та ім'я</th><th>Вік</th><th>E-mail</th><th>Мета звернення</th><th>Дата</th><th>Час</th></tr></thead>

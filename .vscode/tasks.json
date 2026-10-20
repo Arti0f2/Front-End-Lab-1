@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Запустить локальный сервер CodeNest",
+            "type": "process",
+            "command": "python",
+            "args": [
+                "-m",
+                "http.server",
+                "8080",
+                "--bind",
+                "127.0.0.1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "codenest-server",
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^$",
+                    "endsPattern": "Serving HTTP on 127\\.0\\.0\\.1 port 8080"
+                }
+            }
+        }
+    ]
+}
