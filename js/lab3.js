@@ -1,3 +1,11 @@
+// ============================================================================
+// Лабораторна робота №3. Варіант 10
+// Студент: Артем Іващук
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Частина 2. Об'єктно-орієнтований підхід (класи, конструктор, методи, гетери)
+// ----------------------------------------------------------------------------
 class UserRecord {
   constructor(surname, firstName, age, email, purpose, date, time) {
     this.surname = surname;
@@ -9,16 +17,31 @@ class UserRecord {
     this.time = time;
   }
 
+  // Гетер для отримання повного імені
   get fullName() {
     return `${this.surname} ${this.firstName}`;
   }
 
+  // Гетер для повної дати та часу у форматі ISO-подібного рядка (Date String)
   get contactedAt() {
     return `${this.date}T${this.time}`;
   }
 
+  // Демонстрація методів об'єкта Date: getFullYear(), getMonth(), getDate()
+  getFormattedDate() {
+    const dateObj = new Date(this.date);
+    const day = String(dateObj.getDate()).padStart(2, '0'); // Метод Date.getDate() + String.padStart()
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Метод Date.getMonth()
+    const year = dateObj.getFullYear(); // Метод Date.getFullYear()
+    return `${day}.${month}.${year}`;
+  }
+
+  // Розподіл користувачів на 3 класи:
+  // 1) «школярі до початку навчального року» (вік до 16 років, дата до 1 вересня)
+  // 2) «не школярі впродовж семестру» (вік від 16 років, місяці семестру: осінній 9-12 або весняний 2-6)
+  // 3) «інші»
   classify() {
-    const month = Number(this.date.slice(5, 7));
+    const month = Number(this.date.slice(5, 7)); // Явне перетворення Number() та метод String.slice()
     if (this.age < 16 && month < 9) {
       return 'Школярі до початку навчального року';
     }
@@ -28,11 +51,20 @@ class UserRecord {
     return 'Інші';
   }
 
+  // Інформація з метою звернення для сортування за email
+  getInfoWithPurpose() {
+    return `${this.email}: ${this.fullName} (${this.age} р.) — «${this.purpose}»`;
+  }
+
+  // Статичний метод класу для порівняння за алфавітом E-mail (метод String.localeCompare)
   static compareByEmail(first, second) {
     return first.email.localeCompare(second.email);
   }
 }
 
+// ----------------------------------------------------------------------------
+// Частина 1. Початкові масиви даних (10 тем та 10 облікових записів)
+// ----------------------------------------------------------------------------
 const topics = [
   { id: 'T01', title: 'Семантичний HTML', author: 'Олена Коваль', taskType: 'Практична розмітка', readersDay1: 148, readersDay2: 132, hours: 2, minutes: 30 },
   { id: 'T02', title: 'CSS: селектори та каскад', author: 'Андрій Мельник', taskType: 'Вправи зі стилізації', readersDay1: 121, readersDay2: 108, hours: 3, minutes: 0 },
@@ -63,20 +95,84 @@ const users = [
   new UserRecord('Гриценко', 'Анна', 22, 'anna.hrytsenko@example.com', 'Запитання про навчальні теми', '2026-10-15', '18:00'),
 ];
 
+// ----------------------------------------------------------------------------
+// Демонстрація конструкції switch та циклу while (згідно з керівництвом захисту)
+// ----------------------------------------------------------------------------
+// Демонстрація оператора switch
+function describeTaskType(taskType) {
+  switch (taskType) {
+    case 'Практична розмітка':
+      return 'Верстка семантичних тегів HTML';
+    case 'Вправи зі стилізації':
+    case 'Побудова сітки':
+      return 'Стилізація за допомогою CSS (Flex/Grid)';
+    case 'Задачі на обчислення':
+    case 'Програмні вправи':
+    case 'Інтерактивний інтерфейс':
+      return 'Логіка та алгоритми JavaScript';
+    default:
+      return 'Загальне навчальне завдання';
+  }
+}
+
+// Демонстрація циклу з передумовою while: підрахунок загальної кількості годин
+function calculateTotalInitialHours() {
+  let totalHours = 0;
+  let index = 0;
+  while (index < topics.length) {
+    if (topics[index].hours !== null) {
+      totalHours += topics[index].hours;
+    }
+    index++;
+  }
+  return totalHours;
+}
+
+// ----------------------------------------------------------------------------
+// Демонстрація typeof та явного перетворення типів
+// ----------------------------------------------------------------------------
+function demonstrateTypes() {
+  // 3+ елементарних типи: number, string, boolean, undefined
+  console.log('Тип числа:', typeof 42); // "number"
+  console.log('Тип рядка:', typeof 'CodeNest'); // "string"
+  console.log('Тип булевого значення:', typeof true); // "boolean"
+  console.log('Тип undefined:', typeof undefined); // "undefined"
+
+  // 2+ об'єктних типи: масив, об'єкт класу, функція
+  console.log('Тип масиву topics:', typeof topics); // "object"
+  console.log('Тип екземпляра UserRecord:', typeof users[0]); // "object"
+  console.log('Тип функції renderTopics:', typeof renderTopics); // "function"
+
+  // 3 вбудовані функції для явного перетворення типів:
+  const asNumber = Number('123'); // Явне перетворення до числа: 123
+  const asString = String(456); // Явне перетворення до рядка: "456"
+  const asBoolean = Boolean(1); // Явне перетворення до булевого типу: true
+  console.log('Явне перетворення:', asNumber, asString, asBoolean);
+}
+
+// ----------------------------------------------------------------------------
+// Елементи DOM та функції рендерингу
+// ----------------------------------------------------------------------------
 const topicBody = document.querySelector('#topics-table-body');
 const usersBody = document.querySelector('#users-table-body');
 
+// 1. Function Declaration (оголошення функції, підлягає hoisting):
 function formatDuration(totalMinutes) {
+  // Демонстрація методів Math: Math.floor
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   return `${hours} год ${String(minutes).padStart(2, '0')} хв`;
 }
 
-function formatValue(value) {
+// 2. Function Expression (функціональний вираз, НЕ підлягає hoisting):
+const formatValue = function(value) {
+  // Демонстрація явного перетворення String() та порівняння ===
   return value === null || value === undefined || value === '' ? '—' : String(value);
-}
+};
 
+// Рендеринг таблиці тем із збереженням стану чекбоксів
 function renderTopics() {
+  // 3. Стрілкова функція (Arrow function):
   const previouslyChecked = new Set(
     [...document.querySelectorAll('.study-topic:checked')].map((cb) => cb.value)
   );
@@ -96,6 +192,7 @@ function renderTopics() {
     checkbox.setAttribute('aria-label', `Обрати тему ${topic.title || topic.id || 'без назви'}`);
     checkCell.append(checkbox);
     row.append(checkCell);
+
     for (const value of [
       topic.id,
       topic.title,
@@ -112,22 +209,26 @@ function renderTopics() {
     topicBody.append(row);
   }
 
+  // Робота з масивами: flatMap(), filter(), reduce()
   const readershipValues = topics.flatMap((topic) => [topic.readersDay1, topic.readersDay2])
     .filter((value) => Number.isFinite(value));
   const average = readershipValues.length
     ? readershipValues.reduce((sum, value) => sum + value, 0) / readershipValues.length
     : 0;
+
+  // Вивід середньої кількості прочитань (заокруглення через toLocaleString / Math.round)
   document.querySelector('#topic-average').textContent =
     `Середня кількість користувачів, що цікавляться темами (за обома добами): ${average.toLocaleString('uk-UA', { maximumFractionDigits: 1 })} чол./добу.`;
 }
 
+// Рендеринг таблиці користувачів
 function renderUsers(records) {
   usersBody.replaceChildren();
   for (const user of records) {
     const row = document.createElement('tr');
     for (const value of [user.fullName, user.age, user.email, user.purpose, user.date, user.time]) {
       const cell = document.createElement('td');
-      cell.textContent = value;
+      cell.textContent = formatValue(value);
       row.append(cell);
     }
     usersBody.append(row);
@@ -135,13 +236,18 @@ function renderUsers(records) {
 }
 
 function parseOptionalNumber(value) {
+  // Метод String.trim() та явне перетворення Number()
   return value.trim() === '' ? null : Number(value);
 }
 
+// ----------------------------------------------------------------------------
+// Логіка одночасного вивчення тем (множник 1.5 при виборі більше 3 тем)
+// ----------------------------------------------------------------------------
 function getStudyDuration() {
   const selectedKeys = new Set(
     [...document.querySelectorAll('.study-topic:checked')].map((checkbox) => checkbox.value),
   );
+  // Метод масиву: filter()
   const selectedTopics = topics.filter((topic) => selectedKeys.has(topic.key));
   const result = document.querySelector('#study-time-result');
 
@@ -149,21 +255,31 @@ function getStudyDuration() {
     result.textContent = 'Спочатку оберіть одну або більше тем у таблиці.';
     return;
   }
+  // Метод масиву: some()
   if (selectedTopics.some((topic) => topic.hours === null || topic.minutes === null)) {
     result.textContent = 'Не вдалося обчислити тривалість: заповніть години та хвилини для кожної обраної теми.';
     return;
   }
 
+  // Тернарний оператор і множник
   const multiplier = selectedTopics.length > 3 ? 1.5 : 1;
+  // Метод масиву: map() та метод Math.round()
   const durations = selectedTopics.map((topic) => ({
     title: topic.title || topic.id || 'Тема без назви',
     minutes: Math.round((topic.hours * 60 + topic.minutes) * multiplier),
   }));
+  // Метод масиву: reduce()
   const totalMinutes = durations.reduce((total, topic) => total + topic.minutes, 0);
+  // Метод масиву: join()
   const perTopic = durations.map((topic) => `${topic.title} — ${formatDuration(topic.minutes)}`).join('; ');
   result.textContent = `Для ${selectedTopics.length} тем (множник ${multiplier}): ${perTopic}. Разом: ${formatDuration(totalMinutes)}.`;
 }
 
+// ----------------------------------------------------------------------------
+// Додавання нової теми:
+// якщо неповна — unshift() на початок;
+// якщо повна — впорядкування за автором та splice() на належне місце
+// ----------------------------------------------------------------------------
 function addTopic(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -196,16 +312,22 @@ function addTopic(event) {
     return;
   }
 
+  // Перевірка наявності всієї інформації:
   const isMissingInfo = requiredValues.some((value) => value === null || String(value).trim() === '');
   if (isMissingInfo) {
+    // 1. Метод масиву: unshift() — додаємо неповний запис на початок списку
     topics.unshift(topic);
     result.textContent = `Додано неповний запис (ID: ${topic.id || 'без ID'}) на початок списку тем.`;
   } else {
+    // 2. Метод масиву: sort() — сортуємо за автором
     topics.sort((first, second) => (first.author || '').localeCompare(second.author || '', 'uk'));
+    // 3. Метод масиву: findIndex() — знаходимо позицію для вставки
     let insertIndex = topics.findIndex((item) => (item.author || '').localeCompare(topic.author, 'uk') >= 0);
     if (insertIndex === -1) {
+      // 4. Метод масиву: push()
       topics.push(topic);
     } else {
+      // 5. Метод масиву: splice() — вставка у відсортоване місце
       topics.splice(insertIndex, 0, topic);
     }
     result.textContent = `Повний запис «${topic.title}» успішно додано у список, впорядкований за автором (${topic.author}).`;
@@ -215,6 +337,9 @@ function addTopic(event) {
   form.reset();
 }
 
+// ----------------------------------------------------------------------------
+// Фільтрація користувачів за місяцем та моментом часу
+// ----------------------------------------------------------------------------
 function filterUsers(event) {
   event.preventDefault();
   const monthInput = document.querySelector('#filter-month').value;
@@ -226,6 +351,7 @@ function filterUsers(event) {
     return;
   }
 
+  // Метод масиву filter() та методи String: startsWith()
   const matches = users.filter((user) => {
     const matchesMonth = user.date.startsWith(monthInput);
     const matchesMoment = user.contactedAt <= momentInput;
@@ -245,19 +371,22 @@ function resetUsersFilter() {
   renderUsers([...users].sort(UserRecord.compareByEmail));
 }
 
+// Сортування користувачів в алфавітному порядку E-mail із виведенням мети зворотнього зв'язку
 function sortUsersByEmail() {
   const sorted = [...users].sort(UserRecord.compareByEmail);
   renderUsers(sorted);
   const result = document.querySelector('#filtered-users-result');
-  result.textContent = `Всі ${sorted.length} користувачів впорядковано за алфавітом E-mail.`;
+  result.textContent = `Всі ${sorted.length} користувачів впорядковано за алфавітом E-mail: ${sorted.map((u) => u.getInfoWithPurpose()).join('; ')}.`;
 }
 
+// Знаходження наймолодшого користувача
 function renderMinimumAge() {
   const youngest = users.reduce((minimum, user) => user.age < minimum.age ? user : minimum);
   document.querySelector('#minimum-age-result').textContent =
     `Вік: ${youngest.age} р.; E-mail: ${youngest.email}; дата звернення: ${youngest.date} (${youngest.fullName}).`;
 }
 
+// Розподіл користувачів на 3 класи
 function renderUserCategories() {
   const categories = [
     'Школярі до початку навчального року',
@@ -284,7 +413,11 @@ function renderUserCategories() {
   }
 }
 
+// ----------------------------------------------------------------------------
+// Події кнопок та ініціалізація
+// ----------------------------------------------------------------------------
 document.querySelector('#sort-topics').addEventListener('click', () => {
+  // Впорядкування тем за тривалістю вивчення: теми з тривалістю сортуються за зростанням
   topics.sort((first, second) => {
     const firstHasDuration = first.hours !== null && first.minutes !== null;
     const secondHasDuration = second.hours !== null && second.minutes !== null;
@@ -300,6 +433,7 @@ document.querySelector('#sort-topics').addEventListener('click', () => {
 });
 
 document.querySelector('#find-min-topic').addEventListener('click', () => {
+  // Знаходження теми з мінімальною кількістю читачів за добу 2
   const topicsWithReaders = topics.filter((topic) => Number.isFinite(topic.readersDay2));
   const result = document.querySelector('#min-topic-result');
   if (topicsWithReaders.length === 0) {
@@ -313,6 +447,7 @@ document.querySelector('#find-min-topic').addEventListener('click', () => {
   result.textContent =
     `Мінімальна кількість прочитань за добу 2: тема «${minTopic.title}» (${minTopic.readersDay2} читачів). Внутрішній ID: ${minTopic.id}.`;
 
+  // Візуальне підсвічування знайденого рядка в таблиці
   document.querySelectorAll('#topics-table-body tr').forEach((tr) => (tr.style.backgroundColor = ''));
   const targetRow = document.querySelector(`#topic-row-${minTopic.id || minTopic.key}`);
   if (targetRow) {
@@ -327,7 +462,9 @@ document.querySelector('#reset-filter-btn').addEventListener('click', resetUsers
 document.querySelector('#sort-users-email').addEventListener('click', sortUsersByEmail);
 document.querySelector('#reset-users').addEventListener('click', resetUsersFilter);
 
+// Ініціалізація сторінки
 renderTopics();
 renderUsers([...users].sort(UserRecord.compareByEmail));
 renderMinimumAge();
 renderUserCategories();
+demonstrateTypes();
