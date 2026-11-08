@@ -9,8 +9,9 @@
   <title>CodeNest | Вивчай код по-новому</title>
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/lab4.css">
   <script src="js/lab3.js" defer></script>
-  <!-- Для наступних лабораторних: <script src="js/main.js" defer></script> -->
+  <script src="js/lab4.js" defer></script>
 </head>
 <body>
   <header id="top" class="home-header">
@@ -25,6 +26,10 @@
   </header>
 
   <main class="home-main">
+    <div class="night-mode-indicator" id="night-mode-status" aria-label="Індикатор режиму доби">
+      <span>🕒 Системний час: <strong id="current-time-str">--:--</strong> (<span id="night-status-badge" class="night-status-badge day">Денний режим</span>)</span>
+      <button type="button" id="night-mode-toggle-btn" class="night-toggle-btn">Перемкнути вручну (тест -50%)</button>
+    </div>
     <section class="hero-section" aria-labelledby="hero-title">
       <h1 id="hero-title">CodeNest — портал для вивчення мов програмування</h1>
       <div class="hero-grid">
@@ -58,6 +63,10 @@ function startJourney() {
         </ol>
       </article>
       <aside class="purpose-note">
+        <div id="purpose-focus-status" class="purpose-focus-status" aria-live="polite">
+          <span>⏱️ Фокус на меті (30 с): <span id="purpose-timer-counter" class="purpose-timer-badge">30 с</span></span>
+          <button type="button" id="force-rules-btn" class="rules-quick-btn" title="Перевірити модальне вікно без очікування">Показати правила зараз (тест)</button>
+        </div>
         <h3>Наш підхід</h3>
         <p>Навчання програмуванню — це цікавість, яка перетворюється на навичку.</p>
       </aside>
@@ -191,5 +200,27 @@ function startJourney() {
     </div>
     <p>© 2026 CodeNest | <a href="#top">На початок</a></p>
   </footer>
+  <!-- Модальне вікно (Вимога 1): Золоті правила навчання -->
+  <div id="rules-modal-overlay" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="rules-modal-title">✨ Золоті правила навчання від CodeNest</h3>
+        <button type="button" id="rules-modal-close-icon" class="modal-close-icon" aria-label="Закрити модальне вікно">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Ви затримали фокус на розділі мети порталу понад 30 секунд! Ділимося золотими правилами ефективного вивчення програмування, сформованими на власному практичному досвіді:</p>
+        <ol class="golden-rules-list">
+          <li><strong>Практика вирішує все:</strong> Навіть 30 хвилин щоденного написання коду дають значно глибше розуміння, ніж 5 годин пасивного читання раз на тиждень. Кожен новий прийом одразу перевіряйте у браузері.</li>
+          <li><strong>Пишіть код власноруч:</strong> Не копіюйте сліпо готові фрагменти через Ctrl+C / Ctrl+V. Набирання вручну тренує синтаксичну уважність і вчить не губити дужки та крапки з комою.</li>
+          <li><strong>Не бійтеся помилок у консолі:</strong> Червоні сповіщення інтерпретатора у вкладці Console — це не поразка, а точні підказки браузера. Вчіться уважно читати текст помилки та номер рядка.</li>
+          <li><strong>Декомпозиція складності:</strong> Складне завдання розбивайте на прості елементарні кроки: спочатку семантична розмітка HTML, потім візуальні стилі CSS, а далі — інтерактивна логіка JS.</li>
+          <li><strong>Розумійте принципи, а не зубріть синтаксис:</strong> Точні назви методів завжди можна переглянути в офіційній документації MDN. Головне — вміти логічно мислити та будувати правильні алгоритми.</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="rules-modal-close-btn" class="modal-confirm-btn">Зрозуміло, повертаємось до навчання!</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

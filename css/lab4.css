@@ -1,0 +1,683 @@
+/* ==========================================================================
+   Лабораторна робота №4 (Варіант 10)
+   Стилі для динамічних елементів JS та DOM
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Головна сторінка: Модальне вікно "Золоті правила навчання"
+   -------------------------------------------------------------------------- */
+.purpose-focus-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px dashed #c8b2dc;
+  background-color: #f7f2fa;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.purpose-focus-status.active {
+  border-color: #885db0;
+  background-color: #f1e6fa;
+  box-shadow: 0 0 10px rgba(136, 93, 176, 0.2);
+}
+
+.purpose-timer-badge {
+  font-weight: 700;
+  color: var(--purple-dark);
+}
+
+.rules-quick-btn {
+  border: 1px solid #885db0;
+  border-radius: 0.4rem;
+  background: #ffffff;
+  color: var(--purple-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rules-quick-btn:hover {
+  background: #885db0;
+  color: #ffffff;
+}
+
+/* Модальне вікно поверх сторінки з блокуванням */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 10, 25, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 2px solid #885db0;
+  box-shadow: 0 20px 45px rgba(20, 10, 35, 0.4);
+  padding: 2rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0ebf5;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.45rem;
+  color: var(--purple-dark);
+}
+
+.modal-close-icon {
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  line-height: 1;
+  color: #716b7d;
+  cursor: pointer;
+  padding: 0 0.25rem;
+  border-radius: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.modal-close-icon:hover {
+  color: #b91c1c;
+}
+
+.modal-body {
+  padding: 1.25rem 0;
+}
+
+.modal-intro {
+  margin-top: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #4b4655;
+}
+
+.golden-rules-list {
+  margin: 0;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.golden-rules-list li {
+  line-height: 1.55;
+  color: #242038;
+}
+
+.golden-rules-list strong {
+  color: var(--purple-dark);
+}
+
+.modal-footer {
+  padding-top: 1.25rem;
+  border-top: 2px solid #f0ebf5;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-confirm-btn {
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--purple);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.modal-confirm-btn:hover {
+  background: #7948a7;
+}
+
+/* --------------------------------------------------------------------------
+   5. Головна сторінка: Нічний режим (21:00 - 06:00, фон темніший на 50%)
+   -------------------------------------------------------------------------- */
+.night-mode-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 1.5rem;
+  background: #f0ebf5;
+  border: 1px solid #d8cde3;
+  border-radius: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.night-mode-indicator strong {
+  color: var(--purple-dark);
+}
+
+.night-status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.night-status-badge.night {
+  background: #38205d;
+  color: #f7e8a4;
+}
+
+.night-status-badge.day {
+  background: #e2d9ee;
+  color: #27163f;
+}
+
+.night-toggle-btn {
+  border: 1px solid #885db0;
+  background: #ffffff;
+  color: var(--purple-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.night-toggle-btn:hover {
+  background: #885db0;
+  color: #ffffff;
+}
+
+/* Стилі темного режиму (50% затемнення фону всіх елементів) */
+body.night-mode {
+  background-color: #120e1a !important;
+  color: #e6e0f0 !important;
+}
+
+body.night-mode header#top,
+body.night-mode .home-header {
+  background-color: #1a1426 !important;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+body.night-mode .brand {
+  color: #f0ebf5 !important;
+}
+
+body.night-mode .brand-mark {
+  background-color: #3b235e !important;
+}
+
+body.night-mode header nav a {
+  color: #d1c5e2 !important;
+}
+
+body.night-mode header nav a.active,
+body.night-mode header nav a[aria-current="page"] {
+  color: #e5bd00 !important;
+  border-bottom-color: #e5bd00 !important;
+}
+
+body.night-mode .hero-section > h1,
+body.night-mode .purpose-section h2,
+body.night-mode .learning-section h2,
+body.night-mode .lab3-heading h2,
+body.night-mode .lab3-section h3,
+body.night-mode .lab3-section h4 {
+  color: #f3effc !important;
+}
+
+body.night-mode .eyebrow {
+  color: #caa5ee !important;
+}
+
+body.night-mode .code-example {
+  background: #0f0a17 !important;
+}
+
+body.night-mode .purpose-note {
+  border-left-color: #6d4b91 !important;
+}
+
+body.night-mode .learning-table-wrap table {
+  background: #181224 !important;
+  color: #eae5f5 !important;
+  border-color: #4a3466 !important;
+}
+
+body.night-mode .learning-table-wrap th,
+body.night-mode .learning-table-wrap td {
+  border-color: #3d2954 !important;
+}
+
+body.night-mode .learning-table-wrap thead tr,
+body.night-mode .learning-table-wrap tfoot tr {
+  background: #251b36 !important;
+}
+
+body.night-mode .lab3-main {
+  background: #151021 !important;
+  border: 1px solid #3d2954;
+  border-radius: 0.8rem;
+  padding: 1.5rem;
+}
+
+body.night-mode .lab3-table {
+  background: #191226 !important;
+  color: #ece6f7 !important;
+}
+
+body.night-mode .lab3-table th {
+  background: #261b38 !important;
+}
+
+body.night-mode .lab3-table td,
+body.night-mode .lab3-table th {
+  border-color: #3f2a58 !important;
+}
+
+body.night-mode .lab3-form {
+  background: #1a1329 !important;
+  border: 1px solid #432e5e !important;
+}
+
+body.night-mode .lab3-field input,
+body.night-mode .lab3-field select {
+  background: #271c3d !important;
+  color: #ffffff !important;
+  border-color: #583c7d !important;
+}
+
+body.night-mode .site-footer {
+  background: #130a21 !important;
+  color: #d1c7e2 !important;
+}
+
+body.night-mode .site-footer a {
+  color: #e5bd00 !important;
+}
+
+body.night-mode .night-mode-indicator {
+  background: #1e162d !important;
+  border-color: #432e5e !important;
+  color: #eae5f5 !important;
+}
+
+body.night-mode .night-mode-indicator strong {
+  color: #f7e8a4 !important;
+}
+
+body.night-mode .purpose-focus-status {
+  background: #1c142c !important;
+  border-color: #553a77 !important;
+  color: #e5ddf2 !important;
+}
+
+body.night-mode .purpose-timer-badge {
+  color: #f7e8a4 !important;
+}
+
+/* --------------------------------------------------------------------------
+   2 & 3. Сторінка «Навчальні теми»: Акордеон (верхній лівий кут) та Пошук
+   -------------------------------------------------------------------------- */
+.topics-top-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.1fr) minmax(280px, 0.9fr);
+  gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 820px) {
+  .topics-top-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Акордеон у верхньому лівому куті */
+.topics-accordion-wrapper {
+  background: #ffffff;
+  border: 1px solid #c8b2dc;
+  border-radius: 0.8rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 14px rgba(39, 22, 63, 0.06);
+}
+
+.accordion-main-heading {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  font-size: 1.25rem;
+  color: var(--purple-dark);
+}
+
+.accordion-main-subtitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #635b70;
+}
+
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.accordion-item {
+  border: 1px solid #e0d4ec;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #faf8fc;
+  transition: border-color 0.2s ease;
+}
+
+.accordion-item:hover {
+  border-color: #885db0;
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: #faf8fc;
+  color: var(--purple-dark);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion-header:hover {
+  background-color: #f1e7f9;
+  color: var(--purple);
+}
+
+.accordion-header.active {
+  background-color: #ece0f7;
+  color: var(--purple-dark);
+}
+
+.acc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #e2d2f2;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.accordion-header.active .acc-icon {
+  background: var(--purple);
+  color: #ffffff;
+}
+
+.accordion-content {
+  padding: 0.9rem 1rem 1rem;
+  background: #ffffff;
+  border-top: 1px solid #ebdff5;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #3b3545;
+  animation: accordionExpand 0.25s ease-out;
+}
+
+@keyframes accordionExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.accordion-content p {
+  margin: 0 0 0.6rem;
+}
+
+.accordion-jump-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: var(--purple);
+  text-decoration: none;
+  font-size: 0.88rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px dashed var(--purple);
+  transition: all 0.2s ease;
+}
+
+.accordion-jump-link:hover {
+  color: #885db0;
+  border-bottom-style: solid;
+}
+
+/* Секція пошуку тем за назвою */
+.topics-search-block {
+  background: #ffffff;
+  border: 1px solid #c8b2dc;
+  border-radius: 0.8rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 14px rgba(39, 22, 63, 0.06);
+}
+
+.search-heading {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  font-size: 1.25rem;
+  color: var(--purple-dark);
+}
+
+.search-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4b4655;
+}
+
+.search-input-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input-group input {
+  flex: 1 1 180px;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #a99bb8;
+  border-radius: 0.4rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input-group input:focus {
+  border-color: #885db0;
+  box-shadow: 0 0 0 3px rgba(136, 93, 176, 0.2);
+}
+
+.search-btn,
+.search-reset-btn {
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn {
+  background: var(--purple);
+  color: #ffffff;
+}
+
+.search-btn:hover {
+  background: #7948a7;
+}
+
+.search-reset-btn {
+  background: #ece6f3;
+  color: var(--purple-dark);
+}
+
+.search-reset-btn:hover {
+  background: #ded4e8;
+}
+
+.topic-search-stats {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--purple);
+  min-height: 1.3rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Сторінка «Зворотний зв'язок»: Поле "Детально" та підказка (Tooltip)
+   -------------------------------------------------------------------------- */
+.details-field-group {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.details-field-group > label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.details-interactive-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  position: relative;
+  width: 100%;
+}
+
+.details-interactive-container textarea {
+  flex: 1 1 auto;
+  min-height: 10rem;
+  padding: 0.75rem;
+  border: 1px solid #a99bb8;
+  border-radius: 0.4rem;
+  font: inherit;
+  resize: vertical;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Підказка (tooltip) праворуч від поля */
+.details-tooltip {
+  flex: 0 0 260px;
+  max-width: 280px;
+  position: relative;
+  background: #27163f;
+  color: #ffffff;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 8px 20px rgba(39, 22, 63, 0.25);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  animation: tooltipSlideIn 0.25s ease-out;
+}
+
+@keyframes tooltipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.details-tooltip .tooltip-arrow {
+  position: absolute;
+  top: 1.5rem;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #27163f;
+}
+
+.details-tooltip .tooltip-text {
+  display: block;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .details-interactive-container {
+    flex-direction: column;
+  }
+  .details-tooltip {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .details-tooltip .tooltip-arrow {
+    top: -8px;
+    left: 1.5rem;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: none;
+    border-bottom: 8px solid #27163f;
+  }
+}

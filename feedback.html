@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Форма зворотного зв'язку CodeNest">
-
   <title>Зворотний зв'язок | CodeNest</title>
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/feedback.css">
-  <!-- Для наступних лабораторних: <script src="js/main.js" defer></script> -->
+  <link rel="stylesheet" href="css/lab4.css">
+  <script src="js/lab4.js" defer></script>
 </head>
 <body class="feedback-page">
   <header id="top">
@@ -36,7 +36,19 @@
         </div>
       </fieldset>
       <p><label for="purpose">Мета зворотного зв'язку *</label><select id="purpose" name="purpose" required><option value="" selected disabled>Оберіть варіант</option><option>Співпраця</option><option>Скарга на неякісний контент</option><option>Пропозиція</option><option>Наявність помилки</option></select></p>
-      <p><label for="details">Детально * (до 500 символів)</label><textarea id="details" name="details" rows="8" cols="60" maxlength="500" required></textarea></p>
+      
+      <!-- Вимога 4: Поле «Детально» з ефектом при наведенні курсору та підказкою (tooltip) праворуч -->
+      <div class="details-field-group">
+        <label for="details">Детально * (до 500 символів)</label>
+        <div class="details-interactive-container">
+          <textarea id="details" name="details" rows="8" cols="60" maxlength="500" required></textarea>
+          <div id="details-tooltip" class="details-tooltip" role="tooltip" style="display: none;">
+            <div class="tooltip-arrow"></div>
+            <span class="tooltip-text">Ваша думка для нас важлива! Конкретизуйте мету звернення, будь ласка.</span>
+          </div>
+        </div>
+      </div>
+
       <p><label><input type="checkbox" name="consent" required> Я погоджуюся на обробку наданої інформації.</label></p>
       <p class="feedback-actions"><button type="submit">Надіслати</button><button type="reset">Очистити</button></p>
     </form>

@@ -7,6 +7,8 @@
   <title>Навчальні теми | CodeNest</title>
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/topics.css">
+  <link rel="stylesheet" href="css/lab4.css">
+  <script src="js/lab4.js" defer></script>
 </head>
 <body class="topics-page">
   <header id="top" class="topics-header">
@@ -24,8 +26,87 @@
   <main class="topics-main">
     <h1>Навчальні теми</h1>
     <p>Оберіть тему та перегляньте її основні напрямки й практичне завдання.</p>
+
+    <!-- Верхня панель: Акордеон (верхній лівий кут) та Пошук тем -->
+    <div class="topics-top-layout">
+      <!-- Вимога 3: Акордеон у верхньому куті ліворуч -->
+      <aside class="topics-accordion-wrapper" id="topics-accordion-section" aria-label="Швидкий довідник тем">
+        <h2 class="accordion-main-heading">Короткий опис тем (Акордеон)</h2>
+        <p class="accordion-main-subtitle">Розгортається для швидкої навігації та огляду навчальних матеріалів:</p>
+        <div class="accordion-list" id="topics-accordion">
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="acc-btn-html" aria-expanded="false">
+              <span>HTML: мова структури</span>
+              <span class="acc-icon">+</span>
+            </button>
+            <div class="accordion-content" style="display: none;">
+              <p><strong>Опис:</strong> Мова розмітки гіпертексту, що створює фундамент вебсторінки: заголовки, параграфи, семантичні контейнери (header, main, section), таблиці та форми зв'язку.</p>
+              <a href="#topic-html" class="accordion-jump-link">Перейти до картки HTML &darr;</a>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="acc-btn-css" aria-expanded="false">
+              <span>CSS: мова стилю</span>
+              <span class="acc-icon">+</span>
+            </button>
+            <div class="accordion-content" style="display: none;">
+              <p><strong>Опис:</strong> Каскадні таблиці стилів для оформлення інтерфейсу: селектори, блокова модель, кольори, шрифти, сучасні модулі розмітки Flexbox та Grid, анімації й медіазапити.</p>
+              <a href="#topic-css" class="accordion-jump-link">Перейти до картки CSS &darr;</a>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="acc-btn-js" aria-expanded="false">
+              <span>JavaScript: мова дії</span>
+              <span class="acc-icon">+</span>
+            </button>
+            <div class="accordion-content" style="display: none;">
+              <p><strong>Опис:</strong> Мова динаміки фронтенду: робота з DOM-деревом, обробка подій миші й клавіатури, робота з об'єктами Window/Document, валідація та модальні вікна.</p>
+              <a href="#topic-javascript" class="accordion-jump-link">Перейти до картки JavaScript &darr;</a>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="acc-btn-sql" aria-expanded="false">
+              <span>SQL: мова даних</span>
+              <span class="acc-icon">+</span>
+            </button>
+            <div class="accordion-content" style="display: none;">
+              <p><strong>Опис:</strong> Декларативна мова запитів до реляційних баз даних: вибірка (SELECT), фільтрація (WHERE), сортування (ORDER BY), агрегація та об'єднання таблиць (JOIN).</p>
+              <a href="#topic-sql" class="accordion-jump-link">Перейти до картки SQL &darr;</a>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="acc-btn-py" aria-expanded="false">
+              <span>Python: мова рішень</span>
+              <span class="acc-icon">+</span>
+            </button>
+            <div class="accordion-content" style="display: none;">
+              <p><strong>Опис:</strong> Універсальна скриптова мова: висока читабельність, багата стандартна бібліотека, робота зі структурами даних, автоматизація рутинних завдань і бекенд.</p>
+              <a href="#topic-python" class="accordion-jump-link">Перейти до картки Python &darr;</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Вимога 2: Пошук навчальної теми за назвою -->
+      <section class="topics-search-block" aria-label="Пошук тем">
+        <h2 class="search-heading">Пошук тем за назвою</h2>
+        <label for="topic-search-input" class="search-label">Введіть назву теми (наприклад, JavaScript, HTML, SQL):</label>
+        <div class="search-input-group">
+          <input type="text" id="topic-search-input" placeholder="Пошук за назвою..." autocomplete="off">
+          <button type="button" id="topic-search-btn" class="search-btn">Знайти</button>
+          <button type="button" id="topic-search-reset-btn" class="search-reset-btn">Скинути</button>
+        </div>
+        <p id="topic-search-stats" class="topic-search-stats" aria-live="polite"></p>
+      </section>
+    </div>
+
+    <!-- Каталог карток тем -->
     <section class="topic-grid" aria-label="Перелік навчальних тем">
-      <article class="topic-card">
+      <article class="topic-card" id="topic-html">
         <img class="topic-image" src="images/html.svg" alt="Ілюстрація HTML">
         <div class="topic-body">
           <h2 class="topic-name">HTML: мова структури</h2>
@@ -37,7 +118,8 @@
           </div>
         </div>
       </article>
-      <article class="topic-card">
+
+      <article class="topic-card" id="topic-css">
         <img class="topic-image" src="images/css.svg" alt="Ілюстрація CSS">
         <div class="topic-body">
           <h2 class="topic-name">CSS: мова стилю</h2>
@@ -49,7 +131,8 @@
           </div>
         </div>
       </article>
-      <article class="topic-card">
+
+      <article class="topic-card" id="topic-javascript">
         <img class="topic-image" src="images/javascript.svg" alt="Ілюстрація JavaScript">
         <div class="topic-body">
           <h2 class="topic-name">JavaScript: мова дії</h2>
@@ -61,7 +144,8 @@
           </div>
         </div>
       </article>
-      <article class="topic-card">
+
+      <article class="topic-card" id="topic-sql">
         <img class="topic-image" src="images/sql.svg" alt="Ілюстрація SQL">
         <div class="topic-body">
           <h2 class="topic-name">SQL: мова даних</h2>
@@ -73,7 +157,8 @@
           </div>
         </div>
       </article>
-      <article class="topic-card">
+
+      <article class="topic-card" id="topic-python">
         <img class="topic-image" src="images/python.svg" alt="Ілюстрація Python">
         <div class="topic-body">
           <h2 class="topic-name">Python: мова рішень</h2>
