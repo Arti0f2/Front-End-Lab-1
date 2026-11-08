@@ -132,6 +132,7 @@ function calculateTotalInitialHours() {
 // Демонстрація typeof та явного перетворення типів
 // ----------------------------------------------------------------------------
 function demonstrateTypes() {
+  console.log('Мін макс:', Math.min(24,14,58), Math.max(24,14,58));
   // 3+ елементарних типи: number, string, boolean, undefined
   console.log('Тип числа:', typeof 42); // "number"
   console.log('Тип рядка:', typeof 'CodeNest'); // "string"
@@ -148,6 +149,7 @@ function demonstrateTypes() {
   const asString = String(456); // Явне перетворення до рядка: "456"
   const asBoolean = Boolean(1); // Явне перетворення до булевого типу: true
   console.log('Явне перетворення:', asNumber, asString, asBoolean);
+  
 }
 
 // ----------------------------------------------------------------------------
