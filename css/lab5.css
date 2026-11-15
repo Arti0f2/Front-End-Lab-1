@@ -1,0 +1,447 @@
+/* ==========================================================================
+   Лабораторна робота №5
+   Тема: АДАПТИВНІСТЬ, КРОСБРАУЗЕРНІСТЬ ТА МЕТРИКИ ЕФЕКТИВНОСТІ ФРОНТЕНДУ
+   Студент: Іващук Артем Олександрович (Група ІПЗ-31/1)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. ПРИНЦИПИ ГНУЧКОГО МАКЕТА ТА ГНУЧКИХ ЗОБРАЖЕНЬ (RWD)
+   -------------------------------------------------------------------------- */
+img,
+svg,
+picture {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Вендорні префікси та кросбраузерні властивості для контейнерів */
+.cross-browser-card,
+.topic-card,
+.purpose-content,
+.purpose-note,
+.code-example,
+.modal-dialog {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   2. АДАПТИВНЕ НАВІГАЦІЙНЕ МЕНЮ (Mobile Navigation Toggle)
+   -------------------------------------------------------------------------- */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--purple);
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  border-radius: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 1.25rem;
+  color: var(--purple-dark);
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  min-height: 44px;
+  min-width: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus {
+  background: #f0ebf5;
+  color: #7948a7;
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. КРОСБРАУЗЕРНІ ВЕНДОРНІ ПРЕФІКСИ ДЛЯ КЛЮЧОВИХ ВЛАСТИВОСТЕЙ CSS3
+   -------------------------------------------------------------------------- */
+
+/* Кросбраузерні тіні (box-shadow згідно з прикладом з методички стор. 4) */
+header#top,
+.home-header,
+.topics-header {
+  -webkit-box-shadow: 0 2px 12px rgba(39, 22, 63, 0.08);
+  -moz-box-shadow: 0 2px 12px rgba(39, 22, 63, 0.08);
+  -ms-box-shadow: 0 2px 12px rgba(39, 22, 63, 0.08);
+  box-shadow: 0 2px 12px rgba(39, 22, 63, 0.08);
+}
+
+.topic-card {
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  border-radius: 0.7rem;
+  -webkit-transition: -webkit-transform 0.25s ease, -webkit-box-shadow 0.25s ease, background-color 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease, -moz-box-shadow 0.25s ease, background-color 0.25s ease;
+  -o-transition: -o-transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.topic-card:hover {
+  -webkit-transform: translateY(-3px);
+  -moz-transform: translateY(-3px);
+  -ms-transform: translateY(-3px);
+  -o-transform: translateY(-3px);
+  transform: translateY(-3px);
+
+  -webkit-box-shadow: 0 10px 22px rgba(39, 22, 63, 0.15);
+  -moz-box-shadow: 0 10px 22px rgba(39, 22, 63, 0.15);
+  -ms-box-shadow: 0 10px 22px rgba(39, 22, 63, 0.15);
+  box-shadow: 0 10px 22px rgba(39, 22, 63, 0.15);
+}
+
+.modal-overlay {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.modal-dialog {
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0 20px 45px rgba(20, 10, 35, 0.4);
+  -moz-box-shadow: 0 20px 45px rgba(20, 10, 35, 0.4);
+  -ms-box-shadow: 0 20px 45px rgba(20, 10, 35, 0.4);
+  box-shadow: 0 20px 45px rgba(20, 10, 35, 0.4);
+}
+
+/* Підказка (Tooltip) */
+.details-tooltip {
+  -webkit-border-radius: 0.6rem;
+  -moz-border-radius: 0.6rem;
+  border-radius: 0.6rem;
+  -webkit-box-shadow: 0 8px 20px rgba(39, 22, 63, 0.25);
+  -moz-box-shadow: 0 8px 20px rgba(39, 22, 63, 0.25);
+  -ms-box-shadow: 0 8px 20px rgba(39, 22, 63, 0.25);
+  box-shadow: 0 8px 20px rgba(39, 22, 63, 0.25);
+}
+
+/* Кнопки та інтерактивні елементи */
+button,
+.rules-quick-btn,
+.night-toggle-btn,
+.search-btn,
+.search-reset-btn,
+.modal-confirm-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-height: 44px; /* Touch target standard */
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -moz-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   4. СТАНДАРТНІ МЕДІА-ЗАПИТИ (CSS3 Media Queries) ДЛЯ ВСІХ РОЗШИРЕНЬ
+   Згідно зі списком розширень методички:
+   1920px, 1366px, 1024px, 768px, 600px, 480px, 360px, 320px
+   -------------------------------------------------------------------------- */
+
+/* Великі екрани (Desktop 1920px - 1440px) */
+@media only screen and (min-width: 1440px) {
+  .home-main,
+  .topics-main {
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Ноутбуки та десктопи (<= 1280px) */
+@media only screen and (max-width: 1280px) {
+  .home-main {
+    padding-left: clamp(1rem, 3vw, 2.5rem);
+    padding-right: clamp(1rem, 3vw, 2.5rem);
+  }
+}
+
+/* Планшети в альбомній орієнтації та малі лептопи (<= 1024px) */
+@media only screen and (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .code-example {
+    max-width: 100%;
+  }
+
+  .purpose-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .purpose-note {
+    border-left: none;
+    border-top: 3px solid #c8b2dc;
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+}
+
+/* Планшети у портретній орієнтації (<= 768px) */
+@media only screen and (max-width: 768px) {
+  /* Шапка з адаптивним меню */
+  header#top {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .menu-toggle {
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  }
+
+  header nav {
+    display: none; /* Приховано за замовчуванням на мобільних */
+    width: 100%;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0 0.5rem;
+    border-top: 1px solid #e0d4ec;
+  }
+
+  header nav.open {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    animation: menuSlideDown 0.25s ease-out;
+  }
+
+  @keyframes menuSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  header nav a {
+    padding: 0.65rem 0.5rem;
+    border-radius: 0.35rem;
+    font-size: 1.05rem;
+  }
+
+  header nav a:hover {
+    background: #f3edf8;
+  }
+
+  .home-page .home-main {
+    padding-top: 6.5rem;
+  }
+
+  /* Адаптація панелей тем */
+  .topics-top-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .topic-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Адаптація таблиць */
+  .learning-table-wrap,
+  .lab3-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px solid #e0d4ec;
+    border-radius: 0.5rem;
+  }
+
+  .learning-table-wrap table,
+  .lab3-table-wrap table {
+    min-width: 580px;
+  }
+
+  /* Форма зворотного зв'язку */
+  .feedback-fields {
+    flex-direction: column;
+  }
+
+  .feedback-field {
+    flex: 1 1 100%;
+  }
+
+  .details-interactive-container {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .details-tooltip {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .details-tooltip .tooltip-arrow {
+    top: -8px;
+    left: 1.5rem;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: none;
+    border-bottom: 8px solid #27163f;
+  }
+
+  .feedback-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .feedback-actions button {
+    width: 100%;
+  }
+
+  /* Підвал сайту */
+  .site-footer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: left;
+  }
+}
+
+/* Великі смартфони та фаблети (<= 600px) */
+@media only screen and (max-width: 600px) {
+  .hero-section > h1 {
+    font-size: 1.85rem;
+    line-height: 1.2;
+  }
+
+  .brand {
+    font-size: 1.15rem;
+  }
+
+  .brand-mark {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 0.85rem;
+  }
+
+  .night-mode-indicator {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .purpose-focus-status {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rules-quick-btn {
+    width: 100%;
+  }
+
+  .modal-dialog {
+    padding: 1.25rem;
+    width: 95vw;
+  }
+
+  .modal-header h3 {
+    font-size: 1.15rem;
+  }
+
+  .golden-rules-list {
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-confirm-btn {
+    width: 100%;
+  }
+
+  .search-input-group {
+    flex-direction: column;
+  }
+
+  .search-btn,
+  .search-reset-btn {
+    width: 100%;
+  }
+}
+
+/* Смартфони з вузьким екраном (<= 480px / 360px / 320px) */
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  .home-main,
+  .topics-main {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .code-example pre {
+    font-size: 0.82rem;
+    padding: 1rem;
+  }
+
+  .accordion-header {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .acc-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Екстремально малі екрани (<= 320px, наприклад iPhone SE 1st gen) */
+@media only screen and (max-width: 320px) {
+  html {
+    font-size: 14px;
+  }
+
+  .brand-mark {
+    display: none; /* Заощадження місця для логотипу */
+  }
+
+  .hero-section > h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. ДИНАМІЧНІ ОДИНИЦІ ВИСОТИ (2022 CSS Viewport Units: dvh, svh, lvh)
+   Згідно з теоретичними відомостями стор. 1-2 методички
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  min-height: 100vh;
+  min-height: 100dvh; /* Динамічна одиниця для врахування мобільних панелей браузера */
+}
