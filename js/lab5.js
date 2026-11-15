@@ -91,9 +91,9 @@
           var responseTime = (t.responseEnd - t.requestStart) / 1000;
 
           console.log('%c[CodeNest Performance Metrics - Lab 5]', 'color: #885db0; font-weight: bold; font-size: 13px;');
-          console.log('⚡ Час повної загрузки сторінки (Page Load): ' + pageLoadTime.toFixed(3) + ' с');
-          console.log('⚡ Час формування DOM (DOMContentLoaded): ' + domReadyTime.toFixed(3) + ' с');
-          console.log('⚡ Час відповіді сервера (Network Response): ' + responseTime.toFixed(3) + ' с');
+          console.log('Час повної загрузки сторінки (Page Load): ' + pageLoadTime.toFixed(3) + ' с');
+          console.log('Час формування DOM (DOMContentLoaded): ' + domReadyTime.toFixed(3) + ' с');
+          console.log('Час відповіді сервера (Network Response): ' + responseTime.toFixed(3) + ' с');
         }
 
         // Спостереження за Core Web Vitals через PerformanceObserver
@@ -103,7 +103,7 @@
             var lcpObserver = new PerformanceObserver(function (entryList) {
               var entries = entryList.getEntries();
               var lastEntry = entries[entries.length - 1];
-              console.log('🎯 LCP (Largest Contentful Paint): ' + (lastEntry.renderTime || lastEntry.loadTime).toFixed(2) + ' мс (Норма < 2500 мс)');
+              console.log('LCP (Largest Contentful Paint): ' + (lastEntry.renderTime || lastEntry.loadTime).toFixed(2) + ' мс (Норма < 2500 мс)');
             });
             lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
 
@@ -116,7 +116,7 @@
                   clsValue += entries[i].value;
                 }
               }
-              console.log('🎯 CLS (Cumulative Layout Shift): ' + clsValue.toFixed(4) + ' (Норма < 0.1)');
+              console.log('CLS (Cumulative Layout Shift): ' + clsValue.toFixed(4) + ' (Норма < 0.1)');
             });
             clsObserver.observe({ type: 'layout-shift', buffered: true });
           } catch (e) {
